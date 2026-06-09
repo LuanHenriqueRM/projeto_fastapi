@@ -2,6 +2,8 @@
 
 API REST desenvolvida com **FastAPI** para gerenciamento de pedidos. Permite autenticação de usuários, criação, listagem e finalização de pedidos.
 
+---
+
 ## Tecnologias
 
 - [FastAPI](https://fastapi.tiangolo.com/)
@@ -10,6 +12,13 @@ API REST desenvolvida com **FastAPI** para gerenciamento de pedidos. Permite aut
 - [SQLite](https://www.sqlite.org/)
 - [JWT (Python-Jose)](https://github.com/mpdavis/python-jose)
 - [Uvicorn](https://www.uvicorn.org/)
+
+---
+
+## Pré-requisitos
+
+- Python 3.10+
+- pip
 
 ---
 
@@ -25,7 +34,6 @@ cd nome-do-repositorio
 ```bash
 python -m venv venv
 venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/Mac
 ```
 
 **3. Instale as dependências**
@@ -55,14 +63,31 @@ A API estará disponível em: `http://127.0.0.1:8000`
 
 ---
 
-## 📌 Endpoints
+## Endpoints
+
+### Auth
 
 | Método | Rota | Descrição | Autenticação |
 |--------|------|-----------|--------------|
-| `POST` | `/login` | Autenticação do usuário | ❌ |
-| `POST` | `/pedidos` | Criar novo pedido | ✅ |
-| `GET` | `/pedidos` | Listar pedidos | ✅ |
-| `PATCH` | `/pedidos/{id}/finalizar` | Finalizar pedido | ✅ |
+| `GET` | `/auth/` | Verificar autenticação | ✅ |
+| `POST` | `/auth/criar_conta` | Criar nova conta | ❌ |
+| `POST` | `/auth/login` | Login com JSON | ❌ |
+| `POST` | `/auth/login-form` | Login com formulário | ❌ |
+| `GET` | `/auth/refresh` | Renovar token de acesso | ✅ |
+
+### Pedidos
+
+| Método | Rota | Descrição | Autenticação |
+|--------|------|-----------|--------------|
+| `GET` | `/pedidos/` | Listar todos os pedidos | ✅ |
+| `POST` | `/pedidos/pedido` | Criar novo pedido | ✅ |
+| `POST` | `/pedidos/pedido/cancelar/{id_pedido}` | Cancelar pedido | ✅ |
+| `GET` | `/pedidos/listar` | Listar pedidos | ✅ |
+| `POST` | `/pedidos/pedido/adicionar-item/{id_pedido}` | Adicionar item ao pedido | ✅ |
+| `POST` | `/pedidos/pedido/remover-item/{id_item_pedido}` | Remover item do pedido | ✅ |
+| `POST` | `/pedidos/pedido/finalizar/{id_pedido}` | Finalizar pedido | ✅ |
+| `GET` | `/pedidos/pedido/{id_pedido}` | Visualizar pedido | ✅ |
+| `GET` | `/pedidos/listar/pedidos-usuario` | Listar pedidos do usuário | ✅ |
 
 > As rotas com ✅ exigem token JWT no header: `Authorization: Bearer <token>`
 
@@ -82,7 +107,7 @@ Consulte o arquivo `.env.example` para ver as variáveis necessárias.
 
 ---
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ```
 ├── alembic/          # Migrations do banco de dados
@@ -99,4 +124,4 @@ Consulte o arquivo `.env.example` para ver as variáveis necessárias.
 
 ## Autor
 
-Desenvolvido por **Luan Henrique** — [LinkedIn][(https://www.linkedin.com/in/luan-henrique28/)]
+Desenvolvido por **Luan** — [LinkedIn](https://www.linkedin.com/in/luan-henrique28/)
